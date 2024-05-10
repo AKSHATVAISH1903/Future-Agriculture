@@ -1,0 +1,221 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block content %}
+   <head>
+      <title>Shrishti</title>
+     
+      <style>
+        
+    /* The container <div> - needed to position the dropdown content */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+      background-color: rgb(220, 23, 23);
+    }
+    
+    /* Dropdown Content (Hidden by Default) */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+      background-color: black;
+    }
+    
+    /* Links inside the dropdown */
+    .dropdown-content a {
+      color: rgb(17, 16, 16);
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+    
+    /* Change color of dropdown links on hover */
+    .dropdown-content a:hover {background-color: black;}
+    
+    /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {display: block;}
+    
+    /* Change the background color of the dropdown button when the dropdown content is shown */
+    .dropdown:hover .dropbtn {background-color: #3e8e41;} -->
+        
+         .container1 {
+             width: 95%;
+             margin: 0 auto;
+             background-color: #fff;
+             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+             padding: 20px;
+             border-radius: 10px;
+             text-align: center;
+             margin: 50px;
+         }
+   
+         /* Style for the "Daily News" header */
+         h1 {
+             font-size: 36px;
+             color: #333; /* Change the color as desired */
+         }
+   
+         /* Style for the news container */
+         #news-container {
+             padding: 20px;
+             text-align: left; /* Align articles to the left */
+
+         }
+   
+         /* Style for individual news cards */
+         .news-card {
+            border: 2px solid #6ee26e;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #e7f5a1ef;
+            transition: transform 0.2s ease-in-out;
+            font-family: Arial, sans-serif;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .news-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #333; /* Dark text color */
+        }
+        
+        .news-card p {
+            font-size: 1rem;
+            line-height: 1.4;
+            color: #555; /* Slightly darker text color */
+        }
+        
+        .news-card a {
+            display: block;
+            margin-top: 10px;
+            color: #e26e6e; /* Yellow link color */
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .news-card:hover
+        {
+         transform: scale(1.1);
+         margin-bottom: 40px;
+         margin-top: 40px;
+        }
+        
+        .news-card a:hover {
+            transition: -7;
+            color: #4a9791; /* Brighter yellow on hover */
+            text-decoration: underline;
+            
+        }
+        
+        
+        
+        
+        
+        .headin-of-news-page {
+            text-align: center; /* Center align text horizontally */
+        
+        
+            font-family: 'Montserrat', sans-serif;
+            font-size: 30px;
+            /* width: 800px; */
+            /* background-image: linear-gradient(to right, rgba(216, 235, 113, 0.973), rgb(206, 241, 50)); */
+            color: #176bd8;
+            font-weight: normal;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-variant: normal;
+            text-transform: capitalize;
+            display: flex;
+            height: 40px;
+            /* align-items: center; */
+            flex-direction: column;
+            justify-content: space-between;
+            /* border: 2px solid rgb(26, 156, 0); */
+            /* border-radius: 10px; */
+        
+        }
+        
+        .headin-of-news-page h1:hover {
+            color: #0056b3; /* Darker blue on hover */
+            text-decoration: underline;
+            
+        }
+        
+        /* Media query for responsiveness */
+        @media (max-width: 768px) {
+            .headin-of-news-page {
+                width: 100%; /* Make content full width on small screens */
+            }
+        }
+        
+     </style>
+
+
+
+
+
+   </head>
+   <!-- body -->
+   <body class="main-layout">
+      
+      <div class="container1">
+         <h1>Daily Agricultural News</h1>
+         <div id="news-container"></div>
+     </div>
+
+     <script>
+         // Your API key
+         const apiKey = "64fb2d90928077d2c6f1b0a2aa1b217a";
+   
+         // API endpoint
+         const apiUrl = `https://gnews.io/api/v4/search?q=agriculture OR "advancements in agriculture" OR "agricultural news" OR "new technologies in agriculture"&lang=en&apikey=${apiKey}`;
+   
+         // const apiUrl = `https://gnews.io/api/v4/search?q=example&apikey=${apiKey}`;
+   
+         // Function to fetch and display news
+         async function fetchNews() {
+             try {
+                 const response = await fetch(apiUrl);
+                 const data = await response.json();
+   
+                 // Check if the request was successful
+                 if (response.ok) {
+                     displayNews(data.articles);
+                 } else {
+                     throw new Error(`Error: ${data.message}`);
+                 }
+             } catch (error) {
+                 console.error(error);
+             }
+         }
+   
+         // Function to display news articles
+         function displayNews(articles) {
+             const newsContainer = document.getElementById('news-container');
+             newsContainer.innerHTML = '';
+   
+             articles.forEach(article => {
+                 const articleElement = document.createElement('div');
+                 articleElement.classList.add('news-card');
+                 articleElement.innerHTML = `
+                     <h2>${article.title}</h2>
+                     <p>${article.description}</p>
+                     <a href="${article.url}" target="_blank">Read more</a>
+                 `;
+                 newsContainer.appendChild(articleElement);
+             });
+         }
+   
+         // Fetch news when the page loads
+         window.onload = fetchNews;
+     </script>
+         
+    {% endblock content %}

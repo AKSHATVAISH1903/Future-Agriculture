@@ -1,0 +1,121 @@
+{% extends '_base1.html' %}
+{% load static %}
+{% static "images" as baseurl %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+  
+  <style>
+
+   .stick
+   {
+      
+      height:70px;
+      position: fixed;
+      bottom: 30px; /* Adjust the distance from the bottom as needed */
+      right: 30px; /* Adjust the distance from the right as needed */
+      color: #FFF; /* Text color */
+      padding: 5px 5px; /* Padding around the text */
+      border-radius: 5px;
+      z-index: 8;
+      
+   }
+
+   .stick:hover
+   {
+      
+      box-shadow: 10px 10px #888888;
+      
+   }
+
+   .black
+   {
+      position: relative; /* Set the position property to enable positioning */
+      left: 5px; 
+   }
+   .product_box
+   {
+       display: flex; /* Create a flex container */
+       justify-content: center; /* Distribute space between items */
+       align-items: center;
+       border-radius: 3%;
+       border:2px solid #888888;
+       z-index: 1;
+       
+   }
+
+   .product_box:hover
+   {
+      box-shadow: 10px 10px #888888;
+      transform: scale(1.05);
+      z-index: 3;
+   }
+
+   .futuristic {
+      font-family: 'Roboto', sans-serif;
+      font-size: 32px;
+      color: #FF5733;
+      text-transform: uppercase;
+      letter-spacing: 5px;
+    }
+    
+
+  </style>
+  
+   </head>
+   <!-- body -->
+   <body class="main-layout products_page">
+      <!-- loader  -->
+      <div class="loader_bg">
+         <div class="loader"><img src="{% static 'images/loading.gif' %}" alt="#" /></div>
+      </div>
+      <!-- end loader -->
+
+      <div class="product">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-6">
+                  <div class="titlepage"><br>
+                     <h2 class="futuristic">Our Product</h2>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="container-fluid">
+            <div class="row" style="width:auto">
+               {% for x in items %}
+               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-8 padding_left9 mx-auto" >
+                  <div class="product_box" style="padding:45px">
+                     <a href="{% url 'show' x.name %}">
+                     <figure style="width:95%"><img src="{{x.img.url}}" alt="#" class="img1" style="border-radius: 3%;"/></figure>
+                     <br>
+                     <h3 class="black" style="text-align:center;">{{x.name}}</h3></a>
+                  </div>
+               </div>
+               
+               {% endfor %}
+               {% if user.usertype == "farmer" or user.usertype == "Shopkeeper" %}
+               <a href="sell.html" class="stick"><img src="{% static 'images\sell-online-icon.webp' %}" alt="#"  class="stick"/></a>
+               {% else %}
+               <a href="" class="stick"><img src="{% static 'images/buy.jpg' %}" alt="#"  class="stick"/></a>
+               {% endif %}   
+             
+            </div>
+         </div>
+      </div>
+
+   </body>
+</html>
+
+{% endblock %}
+

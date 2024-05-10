@@ -1,0 +1,229 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Agbalumo&family=Playpen+Sans:wght@300&family=Poppins:wght@500&display=swap" rel="stylesheet">
+    <title>User Info</title>
+    <style>
+      
+        body {
+            overflow-x: hidden;
+            font-family: poppins,Arial, sans-serif;
+        
+        }
+        h1 {
+            color: #333;
+        }
+        #user-info-right  :hover
+        {
+            transform: scale(1.2);
+
+        }
+        #user-info-left  :hover
+        {
+            transform: scale(1.2);
+        } 
+        
+        /*
+        #user-info :hover
+        {
+            transform: scale(1.2);
+           
+        }
+        */
+        #user-info {
+            margin: 30px;
+            display: flex;
+            justify-content: center;
+            width:60%;
+            border: 5px solid black;
+            box-shadow: 1px 1px 12px antiquewhite;
+            position: relative;
+           left: 15%;
+           background: azure;
+        }
+
+        #user-info>div
+        {
+            margin :20px;
+            padding: 25px;
+        }
+        #user-info-right
+        {
+            width:40%;
+            padding-left: 0px;
+            font-size: large;
+            justify-content: flex-start;
+            margin-left: 0px;
+        }
+        #user-info-left
+        {
+            width:21%;
+            font-size: large;
+        }
+
+        label , span{
+            font-weight: bold;
+        }
+
+        #name
+        {
+            padding-top: 15px;
+            display: flex;
+            justify-content: center;
+            font-size: 60px;
+            color:wheat;
+            text-shadow : 0px 0px 5px black ;
+        }
+
+        tr:hover{
+            transform: scale(1.1);
+            overflow: none;
+        }
+
+        #listed-item
+        {
+            height:300px;
+            overflow: scroll;
+            margin: 30px;
+            display: flex;
+            justify-content: center;
+            width:60%;
+            border: 13px solid white;
+            box-shadow: 1px 1px 12px black;
+            position: relative;
+           left: 15%;
+        }
+
+        th{
+            width: 100%;
+            position: sticky;
+            background-color: black;
+            color: white;
+            width: 10%;
+            top: 0px;
+
+        }
+
+        td{
+            right:0px;
+        }
+
+        .bor1
+        {
+            display: flex;
+            justify-content: center;
+            margin: 12px;
+            border: 5px solid black;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 id = "name">Profile </h1>
+
+<br>
+    <p style="font-size:35px;font-weight:500;position:relative;left:15%;">User Details</p>
+        <br>
+    <div id="user-info">
+        <div class="bor1">
+        
+                <div id="user-info-left">
+                    
+                    <label for="firstName">First Name: </label><br>
+
+                    <label for="lastName">Last Name: </label><br>
+
+                    <label for="email">Email: </label><br>
+
+                    <label for="phone">phone: </label><br>
+
+                    <label for="usertpe">User Type: </label><br>
+                </div>
+                <div id="user-info-right">
+                    <label for="firstName">{{user.first_name}}</label><br>
+
+                    <label for="lastName">{{user.last_name }}</label><br>
+
+                    <label for="email">{{user.email}}</label><br>
+
+                    <label for="phone">{{user.phone}}</label><br>
+
+                    <label for="usertpe">{{user.usertype}}</label><br>
+                </div>
+        </div>
+    </div>
+    <br>
+    <p style="font-size:35px;font-weight:500;position:relative;left:15%;">listed item</p>
+        <br>
+    <div id="listed-item">
+   
+        <table  cellpadding="16px" style="width: 100%; overflow-y:hidden">
+            <thead >
+            <tr style="background-color: black; width:100%;">
+                <th >category</th>
+                <th >product detail</th>
+                <th >price</th>
+                <th >phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in sell1 %}
+            <tr>
+                <td>{{x.product}}</td>
+                <td>{{x.productdet}}</td>
+                <td>{{x.price}}</td>
+                <td>{{x.phone}}</td>
+    
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+        </table>
+    
+    </div>
+    <br>
+    <p style="font-size:35px;font-weight:500;position:relative;left:15%;">Slot Booked</p>
+        <br>
+    <div id="listed-item">
+   
+        <table  cellpadding="16px" style="width: 100%; overflow-y:hidden">
+            <thead >
+            <tr style="background-color: black; width:100%;">
+                <th >state</th>
+                <th >phone</th>
+                <th >Postal Code</th>
+                <th >Type</th>
+                <th >Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in counsel %}
+            <tr>
+                <td>{{x.state}}</td>
+                <td>{{x.phone}}</td>
+                <td>{{x.postal_code}}</td>
+                <td>{{x.type}}</td>
+                <td>{{x.date}}</td>
+    
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+        </table>
+    
+    </div>
+  
+   
+</body>
+</html>
+
+
+{%endblock content%}

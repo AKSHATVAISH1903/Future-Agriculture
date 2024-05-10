@@ -1,0 +1,164 @@
+{% extends '_base.html' %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Weather Forecast</title>
+    <style>
+        body{
+            background-color:rgb(234, 231, 231);
+        }
+        h1 {
+            text-align: center;
+            position: relative;
+            top: 10px;
+        }
+
+        
+        .latitude{
+            height: 50px;
+            width: 100%;
+            font-size: 25px;
+            text-align: center;
+        }
+        .longitude{
+            height: 50px;
+            width: 100%;
+            font-size: 25px;
+            text-align: center;
+
+        }
+        .get{
+            position: relative;
+            left: 40%;
+            height: 40px;
+            border: 2px solid black;
+            border-radius: 5px;
+            width: 20%;
+            background-color: rgb(187, 176, 176);
+            text-align: center;
+            
+
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        th,
+        td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            height: 40px;
+            width: 400px;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Weather Forecast for India</h1>
+    <div class="box"><br>
+
+        <!-- Input fields for latitude and longitude -->
+        <div class="latitude">
+            <label for="latitude">Latitude:</label>
+            <input type="text" id="latitude" placeholder="Enter latitude" cols="20" rows="10" >
+        </div>
+        <br>
+        <div class="longitude">
+            <label for="longitude">Longitude:</label>
+            <input type="text" id="longitude" placeholder="Enter longitude">
+        </div>
+        <br>
+            <button class="get" onclick="updateWeatherData()">Get Weather Data</button>
+        </div>
+            <table id="weather-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Location</th>
+                <th>Condition</th>
+                <th>Avg. Temperature (°C)</th>
+                <th>Max. Temperature (°C)</th>
+                <th>Min. Temperature (°C)</th>
+                <th>Humidity (%)</th>
+                <th>Wind Speed (km/h)</th>
+                <th>Precipitation (mm)</th>
+                <th>Region</th>
+                <th>Country</th>
+                <th>Lat</th>
+                <th>Lon</th>
+                <th>tz_id</th>
+                <th>localtime</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <h1><center>...</center></h1>
+    <script>
+        function updateWeatherData() {
+            const latitude = document.getElementById('latitude').value;
+            const longitude = document.getElementById('longitude').value;
+
+            // Modify the apiUrl based on user input
+            const apiUrl = `http://api.weatherapi.com/v1/forecast.json?key=083de93019c143ffb53141627231010&q=${latitude},${longitude}&days=5&aqi=yes&alerts=yes`;
+
+            fetchWeatherData(apiUrl);
+        }
+
+        // Function to fetch and display weather data in a table
+        function fetchWeatherData(apiUrl) {
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const weatherTable = document.getElementById('weather-table');
+                    const tableBody = weatherTable.querySelector('tbody');
+                    tableBody.innerHTML = ''; // Clear existing table data
+
+                    // Loop through the forecast days
+                    data.forecast.forecastday.forEach(day => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${day.date}</td>
+                            <td>${data.location.name}</td>
+                            <td>${day.day.condition.text}</td>
+                            <td>${day.day.avgtemp_c} °C</td>
+                            <td>${day.day.maxtemp_c} °C</td>
+                            <td>${day.day.mintemp_c} °C</td>
+                            <td>${day.day.avghumidity} %</td>
+                            <td>${day.day.maxwind_kph} km/h</td>
+                            <td>${day.day.totalprecip_mm} mm</td>
+                            <td>${data.location.region}</td>
+                            <td>${data.location.country}</td>
+                            <td>${data.location.lat}</td>
+                            <td>${data.location.lon}</td>
+                            <td>${data.location.tz_id}</td>
+                            <td>${data.location.localtime}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching weather data:', error);
+                });
+        }
+
+        // Initially fetch weather data when the page loads
+        updateWeatherData();
+    </script>
+</body>
+
+</html>
+
+{% endblock content %}

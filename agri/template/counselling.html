@@ -1,0 +1,188 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+
+      <!-- google fonts -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Agbalumo&family=Playpen+Sans:wght@300&family=Poppins:wght@500;800&family=Roboto:wght@500&display=swap" rel="stylesheet">
+
+    
+      <style>
+        
+
+        body {
+            background: white;
+            overflow-x: hidden;
+            font-family: poppins;
+        }
+        
+        
+        .background .shape{
+          /*  height: 200px;
+            width: 200px;
+            position: absolute; */
+            border-radius: 50%;
+        }
+
+        section
+        {
+            display: flex;
+            justify-content: center;
+            padding: 50px 0px;
+        }
+        
+        .form2 
+        {
+            width:60%;
+            padding: 25px 25px;
+            border: 2px solid black;
+            box-shadow: 2px 2px 24px 24px #ffffffa1;
+            background: antiquewhite;
+            border-radius: 10px;
+            backdrop-filter: blur(30%);
+
+        }
+        .form1{
+            background-color: rgba(255,255,255,0.13);
+            transform: translate(-50%,-50%);
+            border: 2px solid black;
+           
+            border: 10px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 40px rgba(8,7,16,0.6);
+            padding: 50px 35px;
+            width: 45%;
+        }
+        .form1 *{
+            font-family: 'Poppins',sans-serif;
+            color: black;
+            letter-spacing: 0.5px;
+            outline: none;
+            border: none;
+        }
+        .form2 h3{
+            font-size: 5vw;
+            padding: 30px 0px;
+            text-shadow: 1px 1px 1px #080710;
+            font-weight: 500;
+            line-height: 42px;
+            text-align: center;
+            color: wheat;
+        }
+        
+        .label1{
+            display: block;
+            margin-top: 30px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .input1{
+            display: block;
+            height: 50px;
+            width: 100%;
+            background-color: rgba(28,22,22,0.07);
+            border-radius: 3px;
+            padding: 0 10px;
+            margin-top: 8px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .input1:focus
+        {
+               background-color: #f0ffff;
+               color:#080710;
+        }
+        ::placeholder{
+            color: #e5e5e5;
+        }
+        .button1{
+            margin-top: 50px;
+            width: 100%;
+            color: #080710;
+            padding: 15px 0;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .form2 label
+        {
+            font-size: larger;
+            font-weight: 700;
+        }
+
+        @media (width<725px)
+        {
+            .form2 h3
+            {
+                font-size: 7.5vw;
+                padding-left: 0px;
+            }
+            .form2
+            {
+                width:82%;
+                padding: 25px 25px;
+                border: 2px solid black;
+                box-shadow: 2px 2px 24px 24px white;
+                border-radius: 10px;
+                backdrop-filter: blur(30%);
+    
+            } 
+        }
+      </style>
+   </head>
+   <!-- body -->
+   <body class="main-layout">
+      <!-- loader  -->
+      <div class="loader_bg">
+         <div class="loader"><img src="{% static 'images/loading.gif' %}" alt="#" /></div>
+      </div>
+      <!-- end loader -->
+
+      <section>
+       
+         <form action="counselling" method="POST" class="form2">
+          {% csrf_token %}
+             <h3 style='font-family: "Futura", sans-serif;'>For Counselling Here</h3>
+            
+         {% for x in form %}
+                <label for="">{{x.label}}</label>
+                <br>
+                {{x}}
+                <span style="color:red;">{{x.errors}}</span>
+                
+                <br>
+         {%endfor%}
+             <input type="submit" value="Submit" class="input1" style="color: #080710;">
+             <div class="usertype">
+
+                {% for message in messages %}
+                {{message}}
+                {% endfor %}
+             </div>
+             
+         </form>
+      </section>
+     
+    
+   </body>
+</html>
+
+{% endblock %}
