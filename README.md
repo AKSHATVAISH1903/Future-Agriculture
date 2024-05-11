@@ -1,4 +1,3 @@
-```markdown
 # Future Agriculture
 
 Welcome to a smarter, greener, and more prosperous tomorrow!
@@ -41,5 +40,3 @@ Embark on a revolutionary journey in the heart of agriculture, where every seed 
 
 - **Farmers**: Login through farmer ID, sell goods like vegetables, cereals, vegetable oil, and fruits by uploading images, prices, quantities, along with detailed contact information and location.
 - **Shopkeepers**: Login through shopkeeper ID, sell goods like farming equipment and fertilizer by uploading images, prices, quantities, along with detailed contact information and location.
-
-```
